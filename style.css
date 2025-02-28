@@ -1,53 +1,74 @@
 body {
     margin: 0;
-    font-family: 'MS Sans Serif', 'Pixelated MS Sans Serif', Arial, sans-serif;
+    font-family: 'VT323', 'Pixelated MS Sans Serif', monospace;
     background-color: #008080;
     overflow: hidden;
     color: black;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
 @font-face {
-    font-family: 'MS Sans Serif';
+    font-family: 'Pixelated MS Sans Serif';
     src: url('https://unpkg.com/98.css@0.1.17/dist/ms-sans-serif.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
+/* Import VT323 pixelated font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 .desktop {
-    height: calc(100vh - 30px);
+    height: calc(100vh - 32px); /* Adjusted for smaller taskbar height */
     padding: 10px;
     position: relative;
-    display: block; /* Changed to block from flex */
+    display: block;
+    transition: background-color 0.3s ease;
 }
 
 .shortcuts-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 75px; /* Fixed width for shortcuts column */
+}
+
+/* Special position for recycle bin */
+#recycleBin {
+    position: absolute;
+    bottom: 40px; /* Increased to avoid taskbar overlap */
+    right: 10px;
 }
 
 .shortcut {
     background-color: transparent;
     border: none;
-    padding: 5px;
-    margin: 5px 0;
-    width: 70px;
+    padding: 3px;
+    margin: 4px 0;
+    width: 100px; /* Fixed width */
+    height: 90px; /* Reduced height for less spacing */
     text-align: center;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: white;
-    font-size: 11px;
+    font-size: 14px; /* Larger font */
     position: relative;
 }
 
 .shortcut img {
     display: block;
-    margin: 0 auto 5px;
-    width: 32px;
-    height: 32px;
+    margin: 0 auto 4px; /* Reduced bottom margin */
+    width: 72px; /* 1.5x larger icons */
+    height: 72px; /* 1.5x larger icons */
+}
+
+.shortcut-text {
+    width: 90px;
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 1.2;
 }
 
 .shortcut.selected {
@@ -62,15 +83,15 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px dotted white;
+    border: 2px dotted white;
     pointer-events: none;
 }
 
 .menu-item img {
     display: block;
-    margin-right: 5px;
-    width: 16px;
-    height: 16px;
+    margin-right: 8px;
+    width: 24px; /* Larger menu icons */
+    height: 24px;
 }
 
 .taskbar {
@@ -78,13 +99,14 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 28px;
+    height: 32px; /* Reduced height */
     background-color: #c0c0c0;
     border-top: 2px solid #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: inset 1px 0 #dfdfdf, inset -1px 0 #000;
+    box-shadow: inset 2px 0 #dfdfdf, inset -2px 0 #000;
+    z-index: 1000;
 }
 
 .start-button {
@@ -92,50 +114,56 @@ body {
     align-items: center;
     background-color: #c0c0c0;
     border: 2px outset #fff;
-    padding: 0 4px;
-    margin-left: 2px;
-    height: 22px;
+    padding: 0 5px;
+    margin-left: 4px;
+    height: 28px; /* Reduced */
     cursor: pointer;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 14px; /* Reduced font */
+}
+
+.start-button:active, .start-button.active {
+    border-style: inset;
+    padding: 1px 4px 0 6px;
 }
 
 .start-button img {
-    width: 16px;
-    height: 16px;
-    margin-right: 2px;
+    width: 20px; /* Reduced start logo */
+    height: 20px;
+    margin-right: 4px;
 }
 
 .system-tray {
     display: flex;
     align-items: center;
     margin-right: 5px;
-    height: 22px;
+    height: 28px; /* Reduced */
     border-left: 1px solid #888;
-    padding-left: 5px;
+    padding-left: 8px;
 }
 
 .system-tray .time {
-    font-size: 11px;
+    font-size: 14px; /* Reduced font */
     margin-left: 5px;
 }
 
 .system-tray img {
-    width: 16px;
+    width: 16px; /* Reduced tray icons */
     height: 16px;
-    margin: 0 2px;
+    margin: 0 3px;
 }
 
 .start-menu {
     position: absolute;
-    bottom: 30px;
+    bottom: 32px; /* Adjusted for smaller taskbar height */
     left: 0;
     background-color: #c0c0c0;
     border: 2px outset #fff;
     display: none;
     padding: 2px;
-    min-width: 180px;
+    min-width: 200px; /* Reduced width */
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
 }
 
 .start-menu.show {
@@ -147,7 +175,7 @@ body {
     color: white;
     font-weight: bold;
     height: 100%;
-    width: 22px;
+    width: 24px; /* Reduced */
     position: absolute;
     left: 0;
     top: 0;
@@ -159,21 +187,24 @@ body {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     letter-spacing: 1px;
+    font-size: 14px; /* Reduced */
 }
 
 .menu-items-container {
-    margin-left: 22px;
+    margin-left: 24px; /* Match the reduced header width */
     padding: 3px 0;
+    position: relative;
 }
 
 .menu-item {
-    padding: 4px 6px;
+    padding: 4px 8px;
     cursor: pointer;
     white-space: nowrap;
     display: flex;
     align-items: center;
-    font-size: 11px;
-    height: 20px;
+    font-size: 12px; /* Reduced */
+    height: 24px; /* Reduced */
+    position: relative;
 }
 
 .menu-item:hover {
@@ -182,37 +213,61 @@ body {
 }
 
 .menu-separator {
-    height: 1px;
+    height: 2px;
     background-color: #808080;
-    margin: 3px 0;
+    margin: 5px 0;
 }
 
 .submenu-indicator {
     margin-left: auto;
-    font-size: 10px;
+    font-size: 16px; /* Larger */
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    display: none;
+    min-width: 150px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+    padding: 2px;
+}
+
+.menu-item:hover > .submenu {
+    display: block;
+}
+
+.submenu .menu-item {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .window {
     position: absolute;
     background-color: #c0c0c0;
     border: 2px outset #fff;
-    min-width: 200px;
-    min-height: 100px;
+    min-width: 240px; /* Smaller windows */
+    min-height: 160px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     display: none;
     z-index: 100;
+    resize: both;
+    overflow: auto;
 }
 
 .window-titlebar {
     background-color: #000080;
-    padding: 2px 5px;
+    padding: 3px 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: move;
     color: white;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px; /* Smaller */
 }
 
 .window-controls {
@@ -220,21 +275,26 @@ body {
 }
 
 .window-button {
-    width: 16px;
+    width: 16px; /* Smaller */
     height: 14px;
     background-color: #c0c0c0;
     border: 1px outset #fff;
-    margin-left: 2px;
+    margin-left: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10px;
+    font-size: 10px; /* Smaller */
     cursor: pointer;
 }
 
+.window-button:active {
+    border-style: inset;
+}
+
 .window-content {
-    padding: 10px;
+    padding: 8px;
     background-color: #c0c0c0;
+    overflow: auto;
 }
 
 .window.active .window-titlebar {
@@ -258,8 +318,9 @@ body {
     border: 2px outset #fff;
     padding: 5px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px; /* Smaller */
     text-align: center;
+    height: 30px; /* Reduced height */
 }
 
 .calcButton:active {
@@ -270,51 +331,268 @@ body {
     width: calc(100% - 10px);
     margin-bottom: 10px;
     border: 2px inset #fff;
-    padding: 3px;
-    font-family: monospace;
+    padding: 4px;
+    font-family: 'VT323', 'Pixelated MS Sans Serif', monospace;
     text-align: right;
+    font-size: 16px; /* Smaller */
+    height: 24px;
 }
 
-#notepadText {
-    width: calc(100% - 20px);
-    height: 200px;
+.calcButton {
+    font-family: 'VT323', 'Pixelated MS Sans Serif', monospace;
+}
+
+#notepadText, #readmeText {
+    width: calc(100% - 26px);
+    height: 240px; /* Smaller */
     border: 2px inset #fff;
     padding: 5px;
-    font-family: monospace;
+    font-family: 'VT323', monospace;
     resize: none;
+    font-size: 14px; /* Smaller */
 }
 
 .taskbar-item {
-    height: 22px;
+    height: 28px; /* Reduced */
     border: 2px outset #fff;
-    padding: 0 5px;
-    margin-left: 3px;
+    padding: 0 8px;
+    margin-left: 4px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 12px; /* Reduced */
     background-color: #c0c0c0;
-    max-width: 150px;
+    max-width: 150px; /* Reduced */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .taskbar-item img {
-    width: 16px;
+    width: 16px; /* Reduced */
     height: 16px;
-    margin-right: 3px;
+    margin-right: 4px;
 }
 
 .taskbar-items {
     display: flex;
     flex-grow: 1;
-    margin: 0 3px;
+    margin: 0 4px;
+    overflow: hidden;
+    height: 32px; /* Match taskbar height */
+}
+
+.taskbar-item.active {
+    border-style: inset;
+    padding-right: 12px;
+    padding-left: 8px;
+}
+
+/* Custom app window styling */
+#customAppWindow .window-content {
+    padding: 0; /* Remove padding for full iframe */
+    overflow: hidden; /* Hide scrollbars */
+}
+
+#customAppFrame, #gameFrame {
+    border: none;
+    width: 100%;
+    height: 100%;
+    min-height: 320px; /* Set minimum height */
+}
+
+/* Folder view styling */
+.folder-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    padding: 5px;
+}
+
+.folder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.folder-item:hover {
+    background-color: #ffffcc;
+}
+
+.folder-item img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+}
+
+/* Settings window */
+.settings-tabs {
+    display: flex;
+    border-bottom: 1px solid #000;
+    margin-bottom: 12px;
+}
+
+.tab {
+    padding: 5px 12px;
+    border: 1px solid #000;
+    border-bottom: none;
+    margin-right: 3px;
+    cursor: pointer;
+    background-color: #c0c0c0;
+    font-size: 12px;
+}
+
+.tab.active {
+    background-color: #fff;
+    position: relative;
+    top: 1px;
+    border-bottom: 1px solid #fff;
+}
+
+.background-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.background-option {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.background-option:hover, .background-option.selected {
+    border: 1px solid #000080;
+    background-color: #efefef;
+}
+
+.color-preview {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    border: 1px solid #000;
+}
+
+.background-preview {
+    width: 100%;
+    height: 80px;
+    border: 2px inset #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #008080;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.preview-text {
+    color: white;
+    font-size: 14px;
+}
+
+.settings-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.settings-button {
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.settings-button:active {
+    border-style: inset;
+}
+
+/* Dialog styling */
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    min-width: 320px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+
+.dialog-titlebar {
+    background-color: #000080;
+    padding: 3px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.dialog-content {
+    padding: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.dialog-icon {
+    margin-right: 12px;
+}
+
+.dialog-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.dialog-buttons {
+    padding: 6px 12px 12px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.dialog-button {
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    padding: 3px 12px;
+    cursor: pointer;
+    min-width: 60px;
+    font-size: 12px;
+}
+
+.dialog-button:active {
+    border-style: inset;
+}
+
+/* Screen saver */
+#screenSaver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 2000;
+    display: none;
     overflow: hidden;
 }
 
-.active .taskbar-item {
-    border-style: inset;
-    padding-right: 7px;
-    padding-left: 3px;
+.screensaver-logo {
+    position: absolute;
+    width: 150px;
+    height: 75px;
+    background-image: url('images/windows-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
