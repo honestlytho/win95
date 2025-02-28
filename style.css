@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Windows 95 font */
+    background-color: #008080; /* Typical Windows 95 background */
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+..desktop {
+    height: calc(100vh - 30px); /* Adjust for taskbar height */
+    padding: 10px;
+    position: relative;
+}
+
+.shortcut {
+    background-color: #c0c0c0; /* Windows 95 icon background */
+    border: 2px outset #fff;
+    padding: 5px;
+    margin: 5px;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.shortcut.selected {
+    border: 2px inset #fff;
+}
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #c0c0c0;
+    border-top: 2px solid #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.start-button {
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.tray {
+    margin-right: 5px;
+}
+
+
+/* ... (previous CSS) ... */
+
+.start-menu {
+    position: absolute;
+    bottom: 30px; /* Adjust based on taskbar height */
+    left: 0;
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    display: none; /* Initially hidden */
+    padding: 5px;
+}
+
+.start-menu.show {
+    display: block; /* Show when active */
+}
+
+.menu-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.menu-item:hover {
+    background-color: #999; /* Highlight on hover */
+}
+
+/* ... (previous CSS) ... */
+
+.window {
+    position: absolute;
+    background-color: #c0c0c0;
+    border: 2px outset #fff;
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.window-titlebar {
+    background-color: #c0c0c0;
+    border-bottom: 2px solid #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move; /* Indicates draggable */
+}
+
+.window-close {
+    cursor: pointer;
+}
+
+.window-content {
+    padding: 10px;
+}
