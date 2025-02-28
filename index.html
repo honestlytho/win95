@@ -3,42 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hoshjaws</title>
+    <title>Windows 95 Web</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="desktop">
-        <div class="shortcut" id="myComputer">My Computer</div>
-        <div class="shortcut" id="recycleBin">Recycle Bin</div>
+        <div class="shortcuts-container">
+            <div class="shortcut" id="myComputer">
+                <img src="images/mycomputer.png" alt="My Computer">
+                My Computer
+            </div>
+            <div class="shortcut" id="recycleBin">
+                <img src="images/recyclebin.png" alt="Recycle Bin">
+                Recycle Bin
+            </div>
+            <div class="shortcut" id="internetExplorer">
+                <img src="images/iexplore.png" alt="Internet Explorer">
+                Internet Explorer
+            </div>
+            <div class="shortcut" id="networkNeighborhood">
+                <img src="images/network.png" alt="Network Neighborhood">
+                Network
+            </div>
+        </div>
     </div>
+
+    <!-- Windows -->
+    <div class="window" id="myComputerWindow">
+        <div class="window-titlebar">
+            <span>My Computer</span>
+            <div class="window-controls">
+                <div class="window-button window-minimize">_</div>
+                <div class="window-button window-maximize">□</div>
+                <div class="window-button window-close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <p>My Computer contents would go here.</p>
+        </div>
+    </div>
+
+    <div class="window" id="recycleBinWindow">
+        <div class="window-titlebar">
+            <span>Recycle Bin</span>
+            <div class="window-controls">
+                <div class="window-button window-minimize">_</div>
+                <div class="window-button window-maximize">□</div>
+                <div class="window-button window-close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <p>The Recycle Bin is empty.</p>
+        </div>
+    </div>
+
+    <div class="window" id="calculator">
+        <div class="window-titlebar">
+            <span>Calculator</span>
+            <div class="window-controls">
+                <div class="window-button window-minimize">_</div>
+                <div class="window-button window-maximize">□</div>
+                <div class="window-button window-close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <input type="text" id="calcDisplay" readonly>
+            <div class="calcButtons">
+                <button class="calcButton" onclick="calcAppend('7')">7</button>
+                <button class="calcButton" onclick="calcAppend('8')">8</button>
+                <button class="calcButton" onclick="calcAppend('9')">9</button>
+                <button class="calcButton" onclick="calcAppend('/')">/</button>
+                <button class="calcButton" onclick="calcAppend('4')">4</button>
+                <button class="calcButton" onclick="calcAppend('5')">5</button>
+                <button class="calcButton" onclick="calcAppend('6')">6</button>
+                <button class="calcButton" onclick="calcAppend('*')">*</button>
+                <button class="calcButton" onclick="calcAppend('1')">1</button>
+                <button class="calcButton" onclick="calcAppend('2')">2</button>
+                <button class="calcButton" onclick="calcAppend('3')">3</button>
+                <button class="calcButton" onclick="calcAppend('-')">-</button>
+                <button class="calcButton" onclick="calcAppend('0')">0</button>
+                <button class="calcButton" onclick="calcAppend('.')">.</button>
+                <button class="calcButton" onclick="calcEval()">=</button>
+                <button class="calcButton" onclick="calcAppend('+')">+</button>
+                <button class="calcButton" onclick="calcDisplay.value = ''">C</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="notepad">
+        <div class="window-titlebar">
+            <span>Notepad - Untitled</span>
+            <div class="window-controls">
+                <div class="window-button window-minimize">_</div>
+                <div class="window-button window-maximize">□</div>
+                <div class="window-button window-close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <textarea id="notepadText" placeholder="Type your text here..."></textarea>
+        </div>
+    </div>
+
     <div class="taskbar">
-        <div class="start-button">Start</div>
-        <div class="start-menu">
-            <div class="menu-item" data-action="calculator">Calculator</div>
-            <div class="menu-item" data-action="notepad">Notepad</div>
+        <div class="start-button">
+            <img src="images/windows-logo.png" alt="Start">
+            Start
         </div>
-        <div class="tray">
-            <div class="time" id="currentTime"></div>
+        <div class="taskbar-items">
+            <!-- Open windows will create taskbar items here dynamically -->
         </div>
-    </div>
-
-    <div class="window" id="calculator" style="display: none;">
-        <div class="window-titlebar">
-            Calculator
-            <div class="window-close">x</div>
-        </div>
-        <div class="window-content">
-            <p>Calculator Content</p>
+        <div class="system-tray">
+            <img src="images/volume.png" alt="Volume">
+            <span id="currentTime" class="time">12:00</span>
         </div>
     </div>
 
-    <div class="window" id="notepad" style="display: none;">
-        <div class="window-titlebar">
-            Notepad
-            <div class="window-close">x</div>
-        </div>
-        <div class="window-content">
-            <p>Notepad Content</p>
+    <div class="start-menu">
+        <div class="start-menu-header">Windows 95</div>
+        <div class="menu-items-container">
+            <div class="menu-item" data-action="programs">
+                <img src="images/programs.png" alt="Programs">
+                Programs
+                <span class="submenu-indicator">►</span>
+            </div>
+            <div class="menu-item" data-action="documents">
+                <img src="images/documents.png" alt="Documents">
+                Documents
+                <span class="submenu-indicator">►</span>
+            </div>
+            <div class="menu-item" data-action="settings">
+                <img src="images/settings.png" alt="Settings">
+                Settings
+                <span class="submenu-indicator">►</span>
+            </div>
+            <div class="menu-item" data-action="find">
+                <img src="images/find.png" alt="Find">
+                Find
+                <span class="submenu-indicator">►</span>
+            </div>
+            <div class="menu-item" data-action="help">
+                <img src="images/help.png" alt="Help">
+                Help
+            </div>
+            <div class="menu-item" data-action="run">
+                <img src="images/run.png" alt="Run">
+                Run...
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item" data-action="shutdown">
+                <img src="images/shutdown.png" alt="Shut Down">
+                Shut Down...
+            </div>
         </div>
     </div>
 
