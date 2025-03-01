@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh Jump</title>
+    <style>
+        body { text-align: center; margin: 0; overflow: hidden; background: skyblue; }
+        canvas { display: block; background: lightblue; margin: auto; }
+        #menu, #settings {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 20px; border-radius: 10px; text-align: center;
+        }
+        #score, #message {
+            font-size: 24px; font-family: Arial, sans-serif; position: absolute;
+            display: none;
+        }
+        #score { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        #message { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .character-option {
+            width: 50px; height: 50px; cursor: pointer; border: 2px solid transparent;
+        }
+        .selected { border-color: red; }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>Josh Jump</h1>
+        <button onclick="startGame()">Start Game</button>
+        <button onclick="openSettings()">Settings</button>
+    </div>
+    <div id="settings" style="display: none;">
+        <h2>Settings</h2>
+        <p>Background Music Volume:</p>
+        <button onclick="setVolume(0.1)">Low</button>
+        <button onclick="setVolume(0.5)">Medium</button>
+        <button onclick="setVolume(1.0)">High</button>
+        <p>Select Character:</p>
+        <img src="program_data/mac.png" class="character-option selected" onclick="selectCharacter('program_data/mac.png', this)">
+        <img src="program_data/char2.png" class="character-option" onclick="selectCharacter('program_data/char2.png', this)">
+        <br><br>
+        <button onclick="closeSettings()">Back</button>
+    </div>
+    <canvas id="gameCanvas" style="display: none;"></canvas>
+    <div id="score">Score: 0</div>
+    <div id="message"></div>
+    <audio id="bgMusic" src="program_data/toosday 2.flac" loop></audio>
+    <audio id="jumpSound" src="program_data/pop.wav"></audio>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreDisplay = document.getElementById("score");
+        const messageDisplay = document.getElementById("message");
+        const menu = document.getElementById("menu");
+        const settingsMenu = document.getElementById("settings");
+        const bgMusic = document.getElementById("bgMusic");
+        const jumpSound = document.getElementById("jumpSound");
+        
+        canvas.width = 400;
+        canvas.height = 500;
+        
+        let panda = { x: 50, y: 200, width: 30, height: 30, velocity: 0, gravity: 0.5 };
+        let pipes = [];
+        let frame = 0;
+        let score = 0;
+        let gameOver = false;
+        let selectedCharacter = "program_data/mac.png";
+        
+        function selectCharacter(character, element) {
+            selectedCharacter = character;
+            document.querySelectorAll(".character-option").forEach(img => img.classList.remove("selected"));
+            element.classList.add("selected");
+        }
+        
+        function setVolume(level) {
+            bgMusic.volume = level;
+        }
+        
+        function openSettings() {
+            menu.style.display = "none";
+            settingsMenu.style.display = "block";
+        }
+        
+        function closeSettings() {
+            settingsMenu.style.display = "none";
+            menu.style.display = "block";
+        }
+        
+        function startGame() {
+            menu.style.display = "none";
+            canvas.style.display = "block";
+            scoreDisplay.style.display = "block";
+            bgMusic.play();
+            gameLoop();
+        }
+        
+        let pandaImg = new Image();
+        pandaImg.src = selectedCharacter;
+        
+        function drawPanda() {
+            pandaImg.src = selectedCharacter;
+            ctx.drawImage(pandaImg, panda.x, panda.y, panda.width, panda.height);
+        }
+        
+        function drawPipes() {
+            ctx.fillStyle = "green";
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.top);
+                ctx.fillRect(pipe.x, pipe.bottomY, pipe.width, canvas.height - pipe.bottomY);
+            });
+        }
+        
+        function updatePipes() {
+            if (frame % 90 === 0) {
+                let gap = 120;
+                let topHeight = Math.random() * (canvas.height - gap - 50);
+                pipes.push({ x: canvas.width, width: 40, top: topHeight, bottomY: topHeight + gap });
+            }
+            pipes.forEach(pipe => { pipe.x -= 2; });
+            pipes = pipes.filter(pipe => pipe.x + pipe.width > 0);
+        }
+        
+        function checkCollision() {
+            if (panda.y + panda.height > canvas.height || panda.y < 0) return true;
+            return pipes.some(pipe => 
+                panda.x < pipe.x + pipe.width &&
+                panda.x + panda.width > pipe.x &&
+                (panda.y < pipe.top || panda.y + panda.height > pipe.bottomY)
+            );
+        }
+        
+        function gameLoop() {
+            if (gameOver) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            panda.velocity += panda.gravity;
+            panda.y += panda.velocity;
+            updatePipes();
+            drawPanda();
+            drawPipes();
+            if (pipes.length && panda.x > pipes[0].x + pipes[0].width) {
+                score++;
+                pipes.shift();
+                if (score >= 25) {
+                    gameOver = true;
+                    messageDisplay.textContent = "You Win! Press R to restart.";
+                    messageDisplay.style.display = "block";
+                    bgMusic.pause();
+                }
+            }
+            scoreDisplay.textContent = "Score: " + score;
+            if (checkCollision()) {
+                gameOver = true;
+                messageDisplay.textContent = "Game Over! Press R to restart.";
+                messageDisplay.style.display = "block";
+                bgMusic.pause();
+            }
+            frame++;
+            requestAnimationFrame(gameLoop);
+        }
+        
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space") {
+                panda.velocity = -7;
+                jumpSound.currentTime = 0;
+                jumpSound.play();
+            }
+            if (e.code === "KeyR" && gameOver) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

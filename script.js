@@ -148,7 +148,7 @@ function createTaskbarItem(windowElement) {
     if (windowId === 'notepad' || windowId === 'readmeWindow') iconSrc = 'images/notepad.png';
     if (windowId === 'myComputerWindow') iconSrc = 'images/mycomputer.png';
     if (windowId === 'recycleBinWindow') iconSrc = 'images/recyclebin.png';
-    if (windowId === 'customAppWindow') iconSrc = 'images/app.png';
+    if (windowId === 'customAppWindow') iconSrc = 'images/joystick.png';
     if (windowId === 'settingsWindow') iconSrc = 'images/settings.png'; // Changed icon
     if (windowId === 'gameWindow') iconSrc = 'images/game.png'; // Added icon
 
@@ -376,8 +376,8 @@ const backgroundPreview = document.getElementById('backgroundPreview');
 const applyBackgroundButton = document.getElementById('applyBackground');
 const cancelSettingsButton = document.getElementById('cancelSettings');
 const okSettingsButton = document.getElementById('okSettings');
-let selectedBackground = '#008080'; // Default teal
-let isBackgroundImage = false; // Track if using image or color
+let selectedBackground = 'images/bg.png'; // Default to bg.png
+let isBackgroundImage = true; // Default to image background
 
 backgroundOptions.forEach(option => {
     option.addEventListener('click', () => {
@@ -415,7 +415,7 @@ window.addEventListener('load', () => {
         // Image exists, set as background
         isBackgroundImage = true;
         selectedBackground = 'images/bg.png';
-        const desktop = document.getElementById('desktop');
+        const desktop = document.querySelector('.desktop');
         desktop.style.backgroundImage = `url('${selectedBackground}')`;
         desktop.style.backgroundSize = 'cover';
         desktop.style.backgroundPosition = 'center';
@@ -429,7 +429,7 @@ window.addEventListener('load', () => {
 });
 
 function applyBackground() {
-    const desktop = document.getElementById('desktop');
+    const desktop = document.querySelector('.desktop');
     if (isBackgroundImage) {
         desktop.style.backgroundImage = `url('${selectedBackground}')`;
         desktop.style.backgroundSize = 'cover';
