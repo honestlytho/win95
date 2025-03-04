@@ -1,3 +1,27 @@
+// Login screen functionality
+const loginButton = document.querySelector('.login-button');
+const loginScreen = document.querySelector('.login-screen');
+const loadingScreen = document.querySelector('.loading-screen');
+const desktop = document.querySelector('.desktop');
+
+// Handle login button click
+loginButton.addEventListener('click', () => {
+    // Hide login screen and show loading screen
+    loginScreen.style.display = 'none';
+    loadingScreen.style.display = 'flex';
+
+    // Simulate Windows loading
+    setTimeout(() => {
+        // Hide loading screen and show desktop
+        loadingScreen.style.display = 'none';
+        desktop.style.display = 'block';
+
+        // Start the normal desktop functionality
+        updateTime();
+        resetScreenSaver();
+    }, 2000); // 2 second loading time
+});
+
 // Variables to track the screen saver
 let screenSaverTimeout;
 let lastActivity = Date.now();
@@ -97,6 +121,10 @@ document.querySelectorAll('.menu-item').forEach(item => {
             openWindow('settingsWindow');
         } else if (action === 'game') {
             openWindow('gameWindow');
+        } else if (action === 'documents') {
+            openWindow('documentsWindow');
+        } else if (action === 'readme') {
+            openWindow('readmeWindow');
         } else if (action === 'shutdown') {
             console.log("Shutdown option clicked - no action taken");
             // Do nothing as requested - for safety, explicitly prevent any default actions
@@ -554,3 +582,13 @@ function createImagesFolder() {
 }
 
 createImagesFolder();
+
+// Add click handler for folder items
+document.querySelectorAll('.folder-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const action = item.dataset.action;
+        if (action === 'readme') {
+            openWindow('readmeWindow');
+        }
+    });
+});

@@ -5,6 +5,22 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="login-screen">
+        <div class="login-window">
+            <h2>Would you like to log in?</h2>
+            <button class="login-button">OK</button>
+        </div>
+    </div>
+
+    <div class="loading-screen">
+        <div class="loading-text">
+            Loading Windows<span class="loading-dots"></span>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
     <div class="desktop">
         <div class="shortcuts-container">
             <div class="shortcut" id="myComputer">
@@ -60,6 +76,12 @@
                 <img src="images/documents.png" alt="Documents">
                 Documents
                 <span class="submenu-indicator">►</span>
+                <div class="submenu">
+                    <div class="menu-item" data-action="readme">
+                        <img src="images/notepad.png" alt="README">
+                        README.txt
+                    </div>
+                </div>
             </div>
             <div class="menu-item" data-action="settings">
                 <img src="images/settings.png" alt="Settings">
@@ -92,11 +114,15 @@
             </div>
         </div>
         <div class="window-content">
-            <textarea id="readmeText" readonly>Hi, I'm Posh. Welcome to my PC!
+            <textarea id="readmeText" readonly>Hi, I'm Josh. Welcome to my PC.
             
-I made this with HTML, CSS, and JavaScript.
+I made this website to practice HTML, CSS, and JavaScript.
 
-Explore. Have fun. Enjoy!
+It's not all functional, but explore and see what is working.
+
+Open the "Game" shortcut to play a flappy-bird style game I made.
+
+
 
             </textarea>
         </div>
@@ -248,6 +274,25 @@ Explore. Have fun. Enjoy!
             <div class="folder-view">
                 <!-- Empty recycle bin -->
                 <p style="text-align: center; margin-top: 50px;">The Recycle Bin is empty</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="window" id="documentsWindow">
+        <div class="window-titlebar">
+            <span>My Documents</span>
+            <div class="window-controls">
+                <div class="window-button window-minimize">_</div>
+                <div class="window-button window-maximize">□</div>
+                <div class="window-button window-close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="folder-view">
+                <div class="folder-item" data-action="readme">
+                    <img src="images/notepad.png" alt="README">
+                    <span>README.txt</span>
+                </div>
             </div>
         </div>
     </div>

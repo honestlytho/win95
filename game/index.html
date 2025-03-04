@@ -274,7 +274,7 @@
         const characterBtns = document.querySelectorAll('.character-btn');
         
         // Audio
-        const backgroundMusic = new Audio('program_data/toosday 2.flac');
+        const backgroundMusic = new Audio('program_data/8bit.flac');
         backgroundMusic.loop = true;
         const jumpSound = new Audio('program_data/pop.wav');
         
@@ -372,13 +372,13 @@
         function applyVolumeSettings() {
             switch(gameSettings.volume) {
                 case 'low':
-                    backgroundMusic.volume = 0.2;
+                    backgroundMusic.volume = 0.35;
                     break;
                 case 'medium':
-                    backgroundMusic.volume = 0.5;
+                    backgroundMusic.volume = 0.65;
                     break;
                 case 'high':
-                    backgroundMusic.volume = 0.8;
+                    backgroundMusic.volume = 0.85;
                     break;
             }
         }
