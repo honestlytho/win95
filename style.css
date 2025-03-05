@@ -1,3 +1,21 @@
+/* custom cursor elements */
+body {
+    cursor: url('images/cursor.cur'), auto;
+}
+
+a, button, input[type="button"], input[type="submit"], input[type="reset"], label, [role="button"], [onclick], .shortcut, .start-button, .menu-item, .calcButton, .taskbar-item, .folder-item, .settings-button, .dialog-button {
+    cursor: url('images/pointer.cur'), pointer;
+}
+
+a:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, label:hover, [role="button"]:hover, [onclick]:hover, .shortcut:hover, .start-button:hover, .menu-item:hover, .calcButton:hover, .taskbar-item:hover, .folder-item:hover, .settings-button:hover, .dialog-button:hover{
+    cursor: url('images/pointer.cur'), pointer;
+}
+
+
+
+
+
+
 body {
     margin: 0;
     font-family: 'VT323', 'Pixelated MS Sans Serif', monospace;
