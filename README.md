@@ -1,6 +1,4 @@
-README.txt
-
-Welcome to my website.
+## Welcome to my website.
 
 I made this to practice programming skills I've been learning.
 
